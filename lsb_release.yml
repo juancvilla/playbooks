@@ -1,0 +1,11 @@
+---
+- name: Playbook lsb_release
+  hosts: rhel7
+  become: True
+  tasks:
+    - name: Ejecutar comando lsb_release remotamente
+      command: lsb_release -a
+      register: salida
+    - name: Mostrar salida
+      debug:
+        var: salida
