@@ -1,0 +1,13 @@
+---
+- name: ejecuta cat /etc/salt/minion_id y captura la salida
+  hosts: '{{ target }}'
+  gather_facts: no
+
+  tasks:
+    - name: Ejecuta cat
+      command: "cat /etc/salt/minion_id "
+      register: catResult
+
+    - name: Display salida de cat
+      debug:
+        msg: "{{ catResult.stdout_lines }}"
