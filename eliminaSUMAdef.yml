@@ -11,6 +11,7 @@
 
   - name: Execute the script
     command: sh /root/eliminaEnSuma.sh
+    ignore_errors: true
 
   - name: Remove file
     ansible.builtin.file:
