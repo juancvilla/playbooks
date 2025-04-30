@@ -17,11 +17,7 @@
 
   - name: Display estado
     debug:
-      msg: |
-        Estado del servicio salt-minion
-        {% for line in status_info.stdout_lines %}
-        {{ line }}
-        {% endfor %}
+      msg: {{ status_info.stdout_lines }}
 
 #  - name: Execute command to change to SP6
 #    command: sed -i "s/1-SLES15SP3SAPPE/1-SLES15SP4SAPPE/" /etc/salt/minion.d/susemanager.conf.bkp
