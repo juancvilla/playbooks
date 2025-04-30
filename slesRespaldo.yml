@@ -1,6 +1,6 @@
 ---  
 - name: SLES Respaldo Estado 
-  hosts: '{{ target }}'
+  hosts: iq3-ci
   become: yes
   tasks: 
   - name: copy bash file
