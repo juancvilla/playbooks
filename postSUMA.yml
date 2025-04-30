@@ -24,6 +24,7 @@
 
   - name: Execute script
     command: sh /root/vaciaRepo.sh
+    ignore_errors: true
 
   - name: Remove file
     ansible.builtin.file:
