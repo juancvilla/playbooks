@@ -1,6 +1,6 @@
 ---  
 - name: SLES Respaldo Estado 
-  hosts: k8s
+  hosts: sap
   become: yes
   tasks: 
   - name: copy bash file
