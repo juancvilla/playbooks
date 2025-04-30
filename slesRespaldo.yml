@@ -1,6 +1,6 @@
 ---  
 - name: SLES Respaldo Estado 
-  hosts: iq3-ci
+  hosts: sap
   become: yes
   tasks: 
   - name: copy bash file
