@@ -1,0 +1,32 @@
+---
+- name: Copy suse template, stop service, show service status and prepare file: susemanager.conf
+  hosts: sap
+  become: yes
+  tasks:
+  - name: copy template file
+    copy: src=templates/susemanagerConfBkpSapSP4-ar.j2 dest=/etc/salt/minion.d/susemanager.conf.bkp
+
+  - name: Ensure salt-minion service is stopped
+    ansible.builtin.service:
+      name: salt-minion
+      state: stopped
+
+  - name: Estado del servicio
+    shell: "systemctl status salt-minion"
+    register: status_info
+
+  - name: Display estado
+    debug:
+      msg: |
+        Estado del servicio salt-minion
+        {% for line in status_info.stdout_lines %}
+        {{ line }}
+        {% endfor %}
+
+#  - name: Execute command to change to SP6
+#    command: sed -i "s/1-SLES15SP3SAPPE/1-SLES15SP4SAPPE/" /etc/salt/minion.d/susemanager.conf.bkp
+
+  - name: Copy file to original
+    ansible.builtin.copy:
+          src: /etc/salt/minion.d/susemanager.conf.bkp
+          dest: /etc/salt/minion.d/susemanager.conf
