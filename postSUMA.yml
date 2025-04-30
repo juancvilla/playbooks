@@ -1,0 +1,26 @@
+---  
+- name: post SUSE Manager
+  hosts: sap
+  become: yes
+  tasks: 
+  - name: Ensure salt-minion service is started
+    ansible.builtin.service:
+      name: salt-minion
+      state: started
+
+  - name: Pause for 31 segundos
+    ansible.builtin.pause:
+      seconds: 31
+
+  - name: Ensure salt-minion service is restarted
+    ansible.builtin.service:
+      name: salt-minion
+      state: restarted
+
+  - name: write script using jinja2
+    ansible.builtin.template:
+      src: templates/vaciaRepo.j2
+      dest: /root/vaciaRepo.sh
+
+  - name: Execute script
+    command: sh /root/vaciaRepo.sh
