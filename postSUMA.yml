@@ -24,3 +24,8 @@
 
   - name: Execute script
     command: sh /root/vaciaRepo.sh
+
+  - name: Remove file
+    ansible.builtin.file:
+      path: /root/vaciaRepo.sh
+      state: absent
