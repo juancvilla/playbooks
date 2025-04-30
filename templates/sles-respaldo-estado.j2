@@ -1,1 +1,51 @@
+#!/bin/bash
+# 2025-04-30
+# Crear directorio de respaldo con fecha
+BACKUP_DIR="/root/respaldo-$(date +%Y%m%d)"
+mkdir -p "$BACKUP_DIR"
+cd "$BACKUP_DIR" || exit 1
+# Informacin de red
+ip route > route.txt
+ip addr > nic.txt
+ip route show > route_static.txt
+# Procesos y paquetes
+lsof > lsof.txt
+ps -fea > procesos.txt
+echo "Date                      Package_Name             Version                Vendor          License                         Description" >> package.txt
+echo "===============================================================================================================================" >> package.txt
+rpm -vqa --queryformat "%{INSTALLTIME:date} :: %{NAME} :: %{VERSION} :: %{VENDOR}:: %{LICENSE} :: %{SUMMARY}\n" >> package.txt
+rpm -qa | sort > packageSorted.txt
+# Servicios en puertos abiertos (preferencia por ss, luego lsof)
+if command -v ss &>/dev/null; then
+    ss -tunap > netstat.txt
+else
+    lsof -i -P -n | grep -i LISTEN > netstat.txt
+fi
+# Informaci▒n de disco y kernel
+df -hP > disco.txt
+uname -r > kernel.txt
+uptime > uptime.txt
+# Configuraciones relevantes
+cp /etc/resolv.conf "/resolv.conf" 2>/dev/null
+cp /etc/ssh/sshd_config "/sshd_config" 2>/dev/null
+cat /etc/fstab > fstab.txt
+# Informacion de red alternativa si ifconfig esta disponible
+if command -v ifconfig &>/dev/null; then
+    ifconfig -a > network.txt
+else
+    ip a > network.txt
+fi
+cat /etc/fstab > fstab.txt
+cp /etc/zypp/repos.d/*.repo .
+cp /boot/grub2/grub.cfg grub.txt
+cp /etc/salt/minion.d/susemanager.conf susemanager.conf
+cp /etc/salt/minion.d/susemanager.conf.bkp susemanager.conf.bkp
+# Archivos de HAProxy y Keepalived, para revisar despues de la actualizacion
+cp /etc/haproxy/haproxy.cfg  .
+cp /etc/keepalived/keepalived.conf .
+cp /usr/lib/systemd/system/haproxy.service .
+cp /etc/haproxy/frontend.cfg .
+# Volver al directorio anterior
+cd - >/dev/null
+# Fin
 
