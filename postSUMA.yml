@@ -8,9 +8,9 @@
       name: salt-minion
       state: started
 
-  - name: Pause for 31 segundos
+  - name: Pause for 20 segundos
     ansible.builtin.pause:
-      seconds: 31
+      seconds: 20
 
   - name: Ensure salt-minion service is restarted
     ansible.builtin.service:
