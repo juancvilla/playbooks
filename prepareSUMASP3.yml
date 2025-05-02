@@ -1,14 +1,13 @@
----
-- name: Copy suse template, stop service, show service status and prepare file susemanager.conf
-  hosts: g500603vm201
+---  
+- name: prepare SUSE Manager
+  hosts: '{{ target }}'
   become: yes
   vars:
-    servicePack: 6
+    servicePack: 3 
   tasks:
-
   - name: Use Jinja2 template to configure ServicePack level
     template:
-      src: susemanagerConfBkpSap-ar.j2
+      src: susemanagerConfBkp-cl.j2
       dest: /etc/salt/minion.d/susemanager.conf.bkp
 
   - name: Ensure salt-minion service is stopped
@@ -21,7 +20,5 @@
           src: /etc/salt/minion.d/susemanager.conf.bkp
           remote_src: true
           dest: /etc/salt/minion.d/susemanager.conf
-
-
 
 

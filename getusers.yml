@@ -1,0 +1,12 @@
+---
+- name: Playbook getusers
+  hosts: brasil
+  become: True
+  tasks:
+    - name: Get all users
+      ansible.builtin.getent:
+        database: passwd
+        split: '\t'
+        #split: ':'
+    - ansible.builtin.debug:
+        var: ansible_facts.getent_passwd

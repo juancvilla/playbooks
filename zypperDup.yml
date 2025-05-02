@@ -1,0 +1,8 @@
+---  
+- name: Actualiza SP
+  hosts: '{{ target }}'
+  become: yes
+  tasks: 
+  - name: Execute command
+    command: zypper dup -y
+

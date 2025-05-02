@@ -1,0 +1,14 @@
+---  
+- name: Copy suse template, stop service, show service status and prepare file susemanager.conf
+  hosts: '{{ target }}'
+  gather_facts: no
+  become: yes
+  tasks: 
+  - name: Estado del servicio
+    shell: "systemctl status salt-minion"
+    register: status_info
+
+  - name: Display estado
+    debug:
+      var: status_info.stdout_lines
+

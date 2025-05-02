@@ -2,6 +2,8 @@
 - name: Elimina SUMA-cl definition
   hosts: cl-suma
   become: yes
+  vars:
+    serverToEliminate: g500603vm201
   tasks:
 
   - name: Create file from template

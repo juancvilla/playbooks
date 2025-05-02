@@ -1,10 +1,14 @@
----
+---  
 - name: prepare SUSE Manager
-  hosts: fd1-ci
+  hosts: '{{ target }}'
   become: yes
-  tasks:
-  - name: copy template file
-    copy: src=templates/susemanagerConfBkpSP6-cl.j2 dest=/etc/salt/minion.d/susemanager.conf.bkp
+  vars:
+    servicePack: 6
+  tasks: 
+  - name: Use Jinja2 template to configure ServicePack level
+    template:
+      src: susemanagerConfBkp-cl.j2
+      dest: /etc/salt/minion.d/susemanager.conf.bkp
 
   - name: Ensure salt-minion service is stopped
     ansible.builtin.service:
@@ -13,6 +17,8 @@
 
   - name: Copy file to original
     ansible.builtin.copy:
-          src: /etc/salt/minion_id/susemanager.conf.bkp
+          src: /etc/salt/minion.d/susemanager.conf.bkp
           remote_src: true
-          dest: /etc/salt/minion_id/susemanager.conf
+          dest: /etc/salt/minion.d/susemanager.conf
+            
+

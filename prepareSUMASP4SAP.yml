@@ -1,10 +1,14 @@
 ---
 - name: Copy suse template, stop service, show service status and prepare file susemanager.conf
-  hosts: sap
+  hosts: g500603vm201
   become: yes
+  vars:
+    servicePack: 4
   tasks:
-  - name: copy template file
-    copy: src=templates/susemanagerConfBkpSapSP4-ar.j2 dest=/etc/salt/minion.d/susemanager.conf.bkp
+  - name: Use Jinja2 template to configure ServicePack level
+    template:
+      src: susemanagerConfBkpSap-ar.j2 
+      dest: /etc/salt/minion.d/susemanager.conf.bkp
 
   - name: Ensure salt-minion service is stopped
     ansible.builtin.service:

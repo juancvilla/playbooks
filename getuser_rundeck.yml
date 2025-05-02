@@ -1,0 +1,11 @@
+---
+- name: Playbook getusers
+  hosts: brasil
+  become: True
+  tasks:
+    - name: Get user rundeck
+      ansible.builtin.getent:
+        database: passwd
+        key: 'rundeck'
+    - ansible.builtin.debug:
+        var: ansible_facts.getent_passwd

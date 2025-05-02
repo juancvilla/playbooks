@@ -1,0 +1,46 @@
+---
+- hosts: all
+  become_user: root
+  serial: 2
+
+  tasks:
+    - name: Verify app running
+      shell: if ps -fea | egrep 'apache|http'|grep -v grep > /dev/null ;then echo 'p_running';else echo 'p_not_running';fi
+      ignore_errors: true
+      register: app_check
+
+    - name: decision point to start patching
+      fail: msg="{{ inventory_hostname }} have running App. Please stop app first, then try again."
+      when: app_check.stdout == "p_running"
+
+    - name: upgrade package on server
+      yum:
+        name="kernel"
+        state=latest
+      when: app_check.stdout == "p_not_running" and ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+      register: yum_update
+
+    - name: check if reboot required after kernel update.
+      shell: KERNEL_NEW=$(rpm -q --last kernel | head -1 | awk '{print $1}' | sed 's/kernel-//'); KERNEL_NOW=$(uname -r); if [[ $KERNEL_NEW != $KERNEL_NOW ]]; then echo "reboot_needed"; else echo "reboot_not_needed"; fi
+      ignore_errors: true
+      register: rebot_required
+
+    - name: restart system
+      command: shutdown -r +1 "Rebooting System After Patching"
+      async: 0
+      poll: 0
+      when: reboot_required.stdout == "reboot_needed"
+      register: reboot_started
+      ignore_errors: true
+
+    - name: check if system responding to ssh
+      local_action:
+        module: wait_for
+          host={{ inventory_hostname }}
+          port=22
+          delay=15
+          tiemout=300
+          state=started
+      when: reboot_started|changed
+
+

@@ -2,6 +2,8 @@
 - name: Elimina SUMA-ar definition
   hosts: ar-suma
   become: yes
+  vars:
+    serverToEliminate: iq3-ci
   tasks:
 
   - name: Create file from template
