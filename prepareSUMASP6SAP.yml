@@ -1,0 +1,18 @@
+---
+- name: Copy suse template, stop service, show service status and prepare file susemanager.conf
+  hosts: sap
+  become: yes
+  tasks:
+  - name: copy template file
+    copy: src=templates/susemanagerConfBkpSapSP6-ar.j2 dest=/etc/salt/minion.d/susemanager.conf.bkp
+
+  - name: Ensure salt-minion service is stopped
+    ansible.builtin.service:
+      name: salt-minion
+      state: stopped
+
+  - name: Copy file to original
+    ansible.builtin.copy:
+          src: /etc/salt/minion.d/susemanager.conf.bkp
+          remote_src: true
+          dest: /etc/salt/minion.d/susemanager.conf
