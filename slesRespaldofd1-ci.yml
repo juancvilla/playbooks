@@ -1,0 +1,15 @@
+---  
+- name: SLES Respaldo Estado 
+  hosts: fd1-ci
+  become: yes
+  tasks: 
+  - name: copy bash file
+    copy: src=templates/sles-respaldo-estado.j2 dest=/root/sles-respaldo-estado.sh
+
+  - name: Execute the script
+    command: sh /root/sles-respaldo-estado.sh
+
+  - name: Remove file
+    ansible.builtin.file:
+      path: /root/sles-respaldo-estado.sh
+      state: absent
