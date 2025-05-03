@@ -19,7 +19,7 @@
 
   - name: write script using jinja2
     ansible.builtin.template:
-      src: templates/vaciaRepo.j2
+      src: vaciaRepo.j2
       dest: /root/vaciaRepo.sh
 
   - name: Execute script
