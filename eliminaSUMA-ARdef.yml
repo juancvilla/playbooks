@@ -8,7 +8,7 @@
 
   - name: Create file from template
     template:
-      src: templates/eliminaEnSuma.j2
+      src: eliminaEnSuma.j2
       dest: /root/eliminaEnSuma.sh
 
   - name: Execute the script
