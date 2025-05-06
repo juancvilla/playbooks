@@ -1,6 +1,6 @@
 ---
 - name: ejecuta cat /etc/salt/minion_id y captura la salida
-  hosts: sap
+  hosts: '{{ target }}'
   gather_facts: no
 
   tasks:
