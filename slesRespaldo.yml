@@ -1,6 +1,6 @@
----  
+---
 - name: SLES Respaldo Estado 
-  hosts: '{{ target }}
+  hosts: '{{ target }}'
   become: yes
   tasks: 
   - name: copy bash file
