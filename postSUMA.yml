@@ -1,6 +1,6 @@
 ---  
 - name: post SUSE Manager
-  hosts: sap
+  hosts: '{{ target }}'
   become: yes
   tasks: 
   - name: Ensure salt-minion service is started
