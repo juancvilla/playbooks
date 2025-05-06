@@ -3,7 +3,7 @@
   hosts: cl-suma
   become: yes
   vars:
-    serverToEliminate: g500603vm201
+    serverToEliminate: {{ mi_servidor }}
   tasks:
 
   - name: Create file from template
@@ -15,7 +15,7 @@
     command: sh /root/eliminaEnSuma.sh
     ignore_errors: true
 
-  - name: Remove file
-    ansible.builtin.file:
-      path: /root/eliminaEnSuma.sh
-      state: absent
+#  - name: Remove file
+#    ansible.builtin.file:
+#      path: /root/eliminaEnSuma.sh
+#      state: absent
