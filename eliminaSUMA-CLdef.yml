@@ -3,7 +3,7 @@
   hosts: cl-suma
   become: yes
   vars:
-    serverToEliminate: {{ mi_servidor }}
+    serverToEliminate: '{{ mi_servidor }}'
   tasks:
 
   - name: Create file from template
