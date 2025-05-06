@@ -3,7 +3,7 @@
   hosts: ar-suma
   become: yes
   vars:
-    serverToEliminate: iq3-ci
+    serverToEliminate: '{{ target }}'
   tasks:
 
   - name: Create file from template
