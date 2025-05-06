@@ -2,8 +2,6 @@
 - name: Elimina SUMA-ar definition
   hosts: ar-suma
   become: yes
-  vars:
-    serverToEliminate: '{{ target }}'
   tasks:
 
   - name: Create file from template
