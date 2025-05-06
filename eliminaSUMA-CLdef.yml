@@ -1,5 +1,5 @@
 ---
-- name: Elimina SUMA-cl definition
+- name: Elimina cl-suma definition
   hosts: cl-suma
   become: yes
 #  vars:
