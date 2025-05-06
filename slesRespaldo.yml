@@ -1,6 +1,6 @@
 ---  
 - name: SLES Respaldo Estado 
-  hosts: sap
+  hosts: '{{ target }}
   become: yes
   tasks: 
   - name: copy bash file
