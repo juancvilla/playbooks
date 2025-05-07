@@ -1,0 +1,13 @@
+---
+- name: command df con filtros
+  hosts: '{{ target }}'
+  gather_facts: no
+
+  tasks:
+    - name: Return motd to registered var
+      ansible.builtin.shell: "/usr/bin/df -h | grep -e boot -e root -e '%./var'$"
+      register: command_result
+
+    - name: Print command result
+      debug:
+        msg: "{{ command_result.stdout_lines }}"
