@@ -1,0 +1,17 @@
+---
+- name: Verificar espacio en FS root tenga por lo menos 2.5GB y ejecutar operacion
+  gather_facts: yes
+  hosts: '{{ target }}'
+  vars:
+    target: local
+    tamanoG: 2.5
+  tasks:
+    - name: Ejecutar tarea
+      shell: "echo hay espacio"
+      when: item.mount == "/var" and item.size_available > {{ tamanoG }} * 1024 * 1024 * 1024
+      loop: "{{ ansible_mounts }}"
+      register:
+        task_result
+    - name: Imprime task results
+      debug:
+        msg: "{{ task_result }}"
