@@ -16,8 +16,7 @@
     debug:
       msg: "{{ result_info.stdout_lines }}"
 
-#  - name: Remove script
-#    ansible.builtin.file:
-#      path: /root/instalAgenteAWS.sh
-#      state: absent
-
+  - name: Remove script
+    ansible.builtin.file:
+      path: /root/instalAgenteAWS.sh
+      state: absent
