@@ -3,8 +3,10 @@
   hosts: '{{ target }}'
   become: yes
   tasks:
-  - name: copy bash file
-    copy: src=templates/instalAgenteAWS.j2 dest=/root/instalAgenteAWS.sh
+  - name: use Jinja2 template to configure script
+        template:
+          src: instalAgenteAWS.j2
+          dest: /root/instalAgenteAWS.sh
 
   - name: Execute the script
     shell: sh /root/instalAgenteAWS.sh
@@ -14,8 +16,8 @@
     debug:
       msg: "{{ result_info.stdout_lines }}"
 
-  - name: Remove script
-    ansible.builtin.file:
-      path: /root/instalAgenteAWS.sh
-      state: absent
+#  - name: Remove script
+#    ansible.builtin.file:
+#      path: /root/instalAgenteAWS.sh
+#      state: absent
 
