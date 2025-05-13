@@ -1,0 +1,17 @@
+mkdir /tmp/aws-discovery-agent
+cd /tmp/aws-discovery-agent
+curl -o ./aws-discovery-agent.tar.gz https://s3-us-west-2.amazonaws.com/aws-discovery-agent.us-west-2/linux/latest/aws-discovery-agent.tar.gz
+if [ $? -eq 0 ]; then
+  tar xvfz aws-discovery-agent.tar.gz
+  if [ $? -eq 0 ]; then
+    rpm -e --nodeps aws-discovery-agent
+    if [ $? -eq 0 ]; then
+      bash install -r "us-east-1" -k "{{ secret }}" -s "l8KisbLZxEQrZhMJyNn5VIiNPXe+na4YB/SRVwDV"
+      if [ $? -eq 0 ]; then
+        echo "Instalacion OK de agente AWS"
+      fi
+    fi
+  fi
+fi
+rpm -qa | grep -v grep | grep -i aws
+ps -ef | grep -v grep | grep -i aws
