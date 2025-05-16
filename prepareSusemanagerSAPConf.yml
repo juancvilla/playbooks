@@ -1,24 +1,19 @@
----  
-- name: prepare SUSE Manager
+---
+- name: prepare SUSE Manager config
   hosts: '{{ target }}'
   become: yes
   vars:
-    servicePack: 3 
+    pais: CL
+    servicePack: 4
   tasks:
   - name: Use Jinja2 template to configure ServicePack level
     template:
-      src: susemanagerConfBkp-cl.j2
+      src: susemanagerConfSAPBkp.j2
       dest: /etc/salt/minion.d/susemanager.conf.bkp
-
-  - name: Ensure salt-minion service is stopped
-    ansible.builtin.service:
-      name: salt-minion
-      state: stopped
 
   - name: Copy file to original
     ansible.builtin.copy:
           src: /etc/salt/minion.d/susemanager.conf.bkp
           remote_src: true
           dest: /etc/salt/minion.d/susemanager.conf
-
 

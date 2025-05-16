@@ -8,7 +8,7 @@
   tasks:
     - name: Ejecutar tarea
       shell: "echo hay espacio"
-      when: item.mount == "/var" and item.size_available > {{ tamanoG }} * 1024 * 1024 * 1024
+      when: item.mount == "/" and item.size_available > {{ tamanoG }} * 1024 * 1024 * 1024
       loop: "{{ ansible_mounts }}" 
       register:
         task_result

@@ -1,0 +1,9 @@
+{% if ansible_facts['os_family'] == 'RedHat' %}
+  Este sistema operativo es RedHat. Version: {{ ansible_facts['distribution_version'] }}
+{% elif ansible_facts['os_family'] == 'Debian' %}
+  Este sistema operativo es Debian. Version: {{ ansible_facts['distribution_version'] }}
+{% elif ansible_facts['os_family'] == 'Suse' %}
+  Este sistema operativo es SUSE. Version: {{ ansible_facts['distribution_version'] }}
+{% else %}
+  Este sistema operativo es otro. Version: {{ distribution_version }}
+{% endif %}

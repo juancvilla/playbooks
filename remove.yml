@@ -1,0 +1,12 @@
+---
+- name: removes file/directory
+  hosts: "{{ target }}"
+  gather_facts: no
+  vars:
+    target: g500603vm201
+  tasks:
+  - name: Recursively remove file/directory
+    ansible.builtin.file:
+      path: "{{ path }}"
+      state: absent
+

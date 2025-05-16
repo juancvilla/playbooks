@@ -1,32 +1,35 @@
 ---
-- name: Instala Agente AWS
+- name: 'Agrega {{ espacio }} al filesystem {{ filesystem }}'
   hosts: '{{ target }}'
   become: yes
   vars:
     target: g500603vm201
+    espacio: "1.5g"
+    filesystem: root
+    dispositivo: sdc
   tasks:
   - name: use Jinja2 template to configure script
-    template:
-      src: instalAgenteAWS.j2
-      dest: /root/instalAgenteAWS.sh
+    template: 
+      src: agregaEspacioFilesystem.j2 
+      dest: /root/agregaEspacioFilesystem.sh
     tags:
       script
 
   - name: Execute the script
-    shell: sh /root/instalAgenteAWS.sh
+    shell: sh /root/agregaEspacioFilesystem.sh
     register: result_info
     tags:
-      shell
+      runScript
 
   - name: Display output
     debug:
       msg: "{{ result_info.stdout_lines }}"
     tags:
-      display
+      displayOutput
 
   - name: Remove script
     ansible.builtin.file:
-      path: /root/instalAgenteAWS.sh
+      path: /root/agregaEspacioFilesystem.sh
       state: absent
     tags:
       removeScript

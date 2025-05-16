@@ -1,5 +1,5 @@
 ---
-- name: Display status
+- name: Display status 
   hosts: "{{ target }}"
   gather_facts: no
 
@@ -7,7 +7,11 @@
   - name: Recursively remove file/directory
     ansible.builtin.command: systemctl status {{ servicio }}
     register: cmd_output
+    tags:
+      status
 
   - name: prints status
     debug:
       msg: "{{ cmd_output.stdout_lines }}"
+    tags:
+      display

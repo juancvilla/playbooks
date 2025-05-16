@@ -1,0 +1,26 @@
+---
+- name: Verificar espacio en root var y boot y saludar si cumplen
+  hosts: '{{ target }}'
+  gather_facts: yes
+  vars:
+    target: local
+    tamanoG: 2.5
+  tasks:
+    - name: Evaluar espacio en root var y boot
+      set_fact:
+        mount_statuses: >-
+         {{
+           mount_statuses | default({}) | combine({
+             item.mount: (item.size_available > (
+               2 * 1024 * 1024 * 1024 if item.mount in ['/', '/var']
+               else 150 * 1024 * 1024 if item.mount == '/boot'
+               else 0
+             ))
+           })
+         }}
+      loop: "{{ ansible_mounts }}"
+      when: item.mount in ['/', '/var', '/boot']
+    - name: Imprimir "hello world" si todos los puntos cumplen requisitos
+      shell: echo "hello world"
+      when: >
+        mount_statuses['/'] and mount_statuses['/var'] 

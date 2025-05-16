@@ -1,0 +1,8 @@
+---
+- name: Ping
+  hosts: '{{ target }}'
+  gather_facts: no
+
+  tasks:
+    - name: Example from an Ansible Playbook
+      ansible.builtin.ping:

@@ -1,0 +1,27 @@
+---  
+- name: stops service and show
+  hosts: '{{ target }}'
+  become: yes
+  vars:
+    target: g500603vm201
+    servicio: salt-minion
+  tasks:
+  - name: Ensure {{ servicio }} service is stopped
+    ansible.builtin.service:
+      name: '{{ servicio }}'
+      state: stopped
+    tags:
+      servicio
+
+  - name: shows status
+    command: "systemctl status {{ servicio }}"
+    register: results_info
+    ignore_errors: true
+    tags:
+      status
+
+  - name: Display output
+    debug:
+      msg: "{{ results_info }}"
+    tags:
+      display

@@ -26,8 +26,8 @@ df -hP > disco.txt
 uname -r > kernel.txt
 uptime > uptime.txt
 # Configuraciones relevantes
-cp /etc/resolv.conf "/resolv.conf" 2>/dev/null
-cp /etc/ssh/sshd_config "/sshd_config" 2>/dev/null
+cp /etc/resolv.conf resolv.conf.txt 2>/dev/null
+cp /etc/ssh/sshd_config sshd_config.txt 2>/dev/null
 cat /etc/fstab > fstab.txt
 # Informacion de red alternativa si ifconfig esta disponible
 if command -v ifconfig &>/dev/null; then

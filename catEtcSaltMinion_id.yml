@@ -1,13 +1,18 @@
 ---
 - name: ejecuta cat /etc/salt/minion_id y captura la salida
-  hosts: '{{ target }}'
+  hosts: "{{ target }}"
   gather_facts: no
-
+  vars:
+    target: g500603vm201
   tasks:
     - name: Ejecuta cat
       command: "cat /etc/salt/minion_id "
       register: catResult
+      tags:
+        command
 
     - name: Display salida de cat
       debug:
         msg: "{{ catResult.stdout_lines }}"
+      tags:
+        display

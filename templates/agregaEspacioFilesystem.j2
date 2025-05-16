@@ -1,0 +1,6 @@
+#!/bin/bash
+# 2025-05-15 JC
+pvcreate /dev/{{ dispositivo }}
+vgextend vg_system /dev/{{ dispositivo }}
+lvextend -r -L+{{ espacio }} /dev/mapper/vg_system-lv_{{ filesystem }}
+df -hP

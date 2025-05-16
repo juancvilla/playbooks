@@ -1,6 +1,6 @@
 ---
 - name: Playbook lsb_release
-  hosts: '{{ target }}'
+  hosts: k8s
   become: True
   tasks:
     - name: Ejecutar comando lsb_release remotamente

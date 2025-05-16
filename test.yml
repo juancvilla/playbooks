@@ -3,12 +3,17 @@
   hosts: '{{ target }}'
   gather_facts: no
   become: yes
+  vars:
+    target: g500603vm201
   tasks: 
   - name: Estado del servicio
     shell: "systemctl status salt-minion"
     register: status_info
+    tags:
+      shell
 
   - name: Display estado
     debug:
       var: status_info.stdout_lines
-
+    tags:
+      display

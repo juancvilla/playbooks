@@ -1,0 +1,29 @@
+{% if pais == 'AR' %}
+master: g100603svwbz.cencosud.corp
+grains:
+    susemanager:
+        activation_key: "1-SLES15SP{{ servicePack }}{{ sap }}AR"
+{% elif pais == 'PE' %}
+master: g200603sv08e.cencosud.corp
+grains:
+    susemanager:
+        activation_key: "1-SLES15SP{{ servicePack }}{{ sap }}PE"
+{% elif pais == 'BR' %}
+master: g300603sv10j.cencosud.corp
+grains:
+    susemanager:
+        activation_key: "1-SLES15SP{{ servicePack }}{{ sap }}BR"
+{% elif pais == 'CL' %}
+master: g500603sv76g.cencosud.corp
+grains:
+    susemanager:
+        activation_key: "1-SLES15SP{{ servicePack }}{{ sap }}CL"
+{% elif pais == 'CO' %}
+master: g900603svsmc.cencosud.corp
+grains:
+    susemanager:
+        activation_key: "1-SLES15SP{{ servicePack }}{{ sap }}CO"
+{% else %}
+Pais no definido
+{% endif %}
+

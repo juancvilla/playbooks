@@ -1,0 +1,28 @@
+---  
+- name: start or restart service and show
+  hosts: '{{ target }}'
+  become: yes
+  vars:
+    target: g500603vm201
+    servicio: salt-minion
+    estado: started
+  tasks:
+  - name: Ensure {{ servicio }} service is started
+    ansible.builtin.service:
+      name: '{{ servicio }}'
+      state: '{{ estado }}'
+    tags:
+      servicio
+
+  - name: shows status
+    command: "systemctl status {{ servicio }}"
+    register: results_info
+    ignore_errors: true
+    tags:
+      status
+
+  - name: Display output
+    debug:
+      msg: "{{ results_info }}"
+    tags:
+      display

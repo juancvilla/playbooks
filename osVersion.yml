@@ -1,7 +1,7 @@
 ---
 - name: Ansible Fetch OS Version
   gather_facts: true
-  hosts: '{{ target }}'
+  hosts: brasil
 
   tasks:
     - name: 'System OS details'

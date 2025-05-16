@@ -1,0 +1,16 @@
+---
+- name: Loop
+  gather_facts: no
+  hosts: localhost
+  tasks:
+  - name: Looping
+    shell: "echo This is my item: {{ item }}" 
+    loop:
+      - uno
+      - dos
+    register:
+      echo_results
+  - name: show
+    debug: 
+      var: 
+        echo_results

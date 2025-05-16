@@ -1,22 +1,20 @@
 ---
-- name: Instala Agente AWS
+- name: Agrega disco recien presentado
   hosts: '{{ target }}'
   become: yes
   vars:
     target: g500603vm201
   tasks:
-  - name: use Jinja2 template to configure script
-    template:
-      src: instalAgenteAWS.j2
-      dest: /root/instalAgenteAWS.sh
+  - name: agrega disco recien presentado
+    copy: src=templates/agregaDiscoPresentado.j2 dest=/root/agregaDiscoPresentado.sh
     tags:
       script
 
   - name: Execute the script
-    shell: sh /root/instalAgenteAWS.sh
+    shell: sh /root/agregaDiscoPresentado.sh
     register: result_info
     tags:
-      shell
+      executeScript
 
   - name: Display output
     debug:
@@ -26,7 +24,7 @@
 
   - name: Remove script
     ansible.builtin.file:
-      path: /root/instalAgenteAWS.sh
+      path: /root/agregaDiscoPresentado.sh
       state: absent
     tags:
       removeScript

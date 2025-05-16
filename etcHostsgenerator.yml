@@ -1,0 +1,10 @@
+---
+- name: etc hosts is up to date
+  hosts: '{{ target }}'
+  gather_facts: yes 
+  tasks:
+  - name: Deploy /etc/hosts 
+    template: 
+      src: templates/hosts.j2 
+      dest: /root/hosts
+

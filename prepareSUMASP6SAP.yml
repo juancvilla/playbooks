@@ -1,6 +1,6 @@
 ---
 - name: Copy suse template, stop service, show service status and prepare file susemanager.conf
-  hosts: '{{ target }}'
+  hosts: {{ target }}
   become: yes
   vars:
     servicePack: 6

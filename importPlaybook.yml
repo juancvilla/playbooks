@@ -1,0 +1,5 @@
+---
+- name: Prepare the web server 
+  import_playbook: slesRespaldo.yml 
+- name: Prepare the database server 
+  import_playbook: catEtcSaltMinion_id.yml

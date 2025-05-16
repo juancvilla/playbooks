@@ -1,32 +1,24 @@
 ---  
-- name: post SUSE Manager
+- name: vacia repositorios excepto del susemanager
   hosts: '{{ target }}'
   become: yes
   tasks: 
-  - name: Ensure salt-minion service is started
-    ansible.builtin.service:
-      name: salt-minion
-      state: started
-
-  - name: Pause for 20 segundos
-    ansible.builtin.pause:
-      seconds: 20
-
-  - name: Ensure salt-minion service is restarted
-    ansible.builtin.service:
-      name: salt-minion
-      state: restarted
-
   - name: write script using jinja2
     ansible.builtin.template:
       src: vaciaRepo.j2
       dest: /root/vaciaRepo.sh
+    tags:
+      script
 
   - name: Execute script
     command: sh /root/vaciaRepo.sh
     ignore_errors: true
+    tags:
+      command
 
   - name: Remove file
     ansible.builtin.file:
       path: /root/vaciaRepo.sh
       state: absent
+    tags:
+      removeScript

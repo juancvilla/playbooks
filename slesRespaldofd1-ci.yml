@@ -1,23 +1,15 @@
----
+---  
 - name: SLES Respaldo Estado 
-  hosts: '{{ target }}'
+  hosts: fd1-ci
   become: yes
-  vars:
-    target: g500603vm201
   tasks: 
   - name: copy bash file
     copy: src=templates/sles-respaldo-estado.j2 dest=/root/sles-respaldo-estado.sh
-    tags:
-      script
 
   - name: Execute the script
     command: sh /root/sles-respaldo-estado.sh
-    tags:
-      command
 
   - name: Remove file
     ansible.builtin.file:
       path: /root/sles-respaldo-estado.sh
       state: absent
-    tags:
-      removeScript
