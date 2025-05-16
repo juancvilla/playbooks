@@ -2,7 +2,9 @@
 - name: Display status 
   hosts: "{{ target }}"
   gather_facts: no
-
+  vars:
+    target: g500603vm201
+    servicio: salt-minion
   tasks:
   - name: Recursively remove file/directory
     ansible.builtin.command: systemctl status {{ servicio }}
