@@ -1,0 +1,11 @@
+---
+- name: Usar plantilla Jinja2 con condicionales para mostrar sistema operativo y version
+  hosts: "{{ target }}"
+  gather_facts: yes
+  vars:
+    target: g500603vm201
+  tasks:
+    - name: Crear archivo desde plantilla
+      template:
+        src: templates/sistemaOperativoVersion.j2
+        dest: /tmp/sistemaOperativoVersion.txt
